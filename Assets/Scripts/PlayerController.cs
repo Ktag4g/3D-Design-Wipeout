@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    //Animation Variables
+    public Animator animator;
+
     // Update is called once per frame
     void Update()
     {
@@ -32,6 +35,14 @@ public class PlayerController : MonoBehaviour
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+
+            //Toggle run anim
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            //Toggle run anim
+            animator.SetBool("isRunning", false);
         }
     }
 
