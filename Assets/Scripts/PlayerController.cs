@@ -13,20 +13,30 @@ public class PlayerController : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    public float jumpHeight = 3f;
+
     //Animation Variables
     public Animator animator;
+
+    //Gravity Variables
+    private Vector3 velocity;
+    public float gravity = -9.81f;
+
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+    private bool isGrounded;
 
     // Update is called once per frame
     void Update()
     {
+            //MOVEMENT
         //Get Movement
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        controller.Move(new Vector3(0, -1, 0));
-
-        //Move Player/Toggle Walking Anim
+        //Move Player
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -43,6 +53,33 @@ public class PlayerController : MonoBehaviour
         {
             //Toggle run anim
             animator.SetBool("isRunning", false);
+        }
+            
+            //JUMPING
+        //Checks to see if player is on ground and jmps when space is pressed
+        if(Input.GetButtonDown("Jump") && isGrounded)
+        {
+            //Toggle jump anim
+            animator.SetBool("isJumping", true);
+            
+            //Jump
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+            //GRAVITY
+        //Increase velocity when falling
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        //Checks to see if player is on ground
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        //Resets velocity when on ground
+        if(isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+
+            //Toggle jump anim off
+            animator.SetBool("isJumping", false);
         }
     }
 
