@@ -24,4 +24,18 @@ public class Respawn : MonoBehaviour
             controller.enabled = true;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "CheckPoint")
+        {
+            UpdateCheckpoint();
+        }
+    }
+
+    private void UpdateCheckpoint()
+    {
+        currentCheckpoint = gameObject.transform.position;
+        Debug.Log("Checkpoint Reached!");
+    }
 }
