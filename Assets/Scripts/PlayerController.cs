@@ -59,11 +59,7 @@ public class PlayerController : MonoBehaviour
         //Checks to see if player is on ground and jmps when space is pressed
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
-            //Toggle jump anim
-            animator.SetBool("isJumping", true);
-            
-            //Jump
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Jump(jumpHeight);
         }
 
             //GRAVITY
@@ -81,6 +77,15 @@ public class PlayerController : MonoBehaviour
             //Toggle jump anim off
             animator.SetBool("isJumping", false);
         }
+    }
+
+    public void Jump(float jumpHeight)
+    {
+        //Toggle jump anim
+        animator.SetBool("isJumping", true);
+            
+        //Jump
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
 }
