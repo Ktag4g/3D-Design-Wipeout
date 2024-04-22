@@ -22,11 +22,16 @@ public class Fallaway : MonoBehaviour
         }
     }
 
+    void OnControllerColliderHit()
+    {
+        StartCoroutine(Fall());
+        Debug.Log("Touched");
+    }
+
     IEnumerator Fall()
     {
         yield return new WaitForSeconds(timeTillFall);
         falling = true;
+        Debug.Log("Falling");
     }
-
-
 }
