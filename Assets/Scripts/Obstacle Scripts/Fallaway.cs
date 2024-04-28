@@ -5,15 +5,17 @@ using UnityEngine;
 public class Fallaway : MonoBehaviour
 {
     public float timeTillFall;
+    public float fallSpeed;
+    public Vector3 direction;
 
     private bool falling = false;
 
     // Update is called once per frame
     void Update()
     {
-        if(falling == true)
+        if (falling == true)
         {
-            transform.Translate(Vector3.down * Time.deltaTime * 3);
+            transform.Translate(direction * Time.deltaTime * fallSpeed);
         }
 
         if (transform.position.y < 0)
@@ -22,7 +24,7 @@ public class Fallaway : MonoBehaviour
         }
     }
 
-    void OnControllerColliderHit()
+    private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(Fall());
         Debug.Log("Touched");
