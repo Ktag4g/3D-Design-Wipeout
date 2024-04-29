@@ -10,6 +10,7 @@ public class Victory : MonoBehaviour
 
     public TextMeshProUGUI statsText;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +20,18 @@ public class Victory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(victoryScreen.activeInHierarchy == true)
+        {
+            if(Input.GetMouseButton(0))
+            {
+                gameManager.ResetGame();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Finish")
+        if (other.tag == "Player")
         {
             VictoryScreen();
         }
@@ -37,5 +44,8 @@ public class Victory : MonoBehaviour
         statsText.text =  gameManager.timer.timeText.text + "\n" +
                           "DeAths: " + gameManager.respawn.deathCount + "\n" +
                           "Stars: O O O";
+
+        gameManager.timer.timerOn = false;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
