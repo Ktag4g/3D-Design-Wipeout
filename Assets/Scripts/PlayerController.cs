@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         //Increase velocity when falling
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        animator.SetFloat("velocity", velocity.y);
 
         //Checks to see if player is on ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
