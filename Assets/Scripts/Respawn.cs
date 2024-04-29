@@ -5,6 +5,7 @@ public class Respawn : MonoBehaviour
 {
     public CharacterController controller;
     public Vector3 currentCheckpoint;
+    public int deathCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class Respawn : MonoBehaviour
             Debug.Log("Game Over");
             controller.enabled = false;
             gameObject.transform.position = currentCheckpoint;
+            deathCount++;
             controller.enabled = true;
         }
     }
