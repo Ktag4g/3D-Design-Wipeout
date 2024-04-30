@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject pauseScreen;
 
+    public bool coll1 = false;
+    public bool coll2 = false;
+    public bool coll3 = false;
+
     // Start is called before the first frame update
     void Start()
     {

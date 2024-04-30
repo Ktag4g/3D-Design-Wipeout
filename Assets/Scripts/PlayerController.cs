@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    private bool isGrounded;
+    public bool isGrounded;
 
     // Update is called once per frame
     void Update()
