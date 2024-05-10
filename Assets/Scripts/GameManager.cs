@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         timer = GameObject.Find("timer").GetComponent<timer>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame

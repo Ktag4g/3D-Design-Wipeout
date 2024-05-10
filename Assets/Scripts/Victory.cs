@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Victory : MonoBehaviour
 {
@@ -10,14 +11,23 @@ public class Victory : MonoBehaviour
 
     public TextMeshProUGUI statsText;
 
-    private char collCheck1 = 'O';
-    private char collCheck2 = 'O';
-    private char collCheck3 = 'O';
+    private Image collCheck1;
+    private Image collCheck2;
+    private Image collCheck3;
+
+    public Sprite notCollectedSprite;
+    public Sprite collectedSprite;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
+        collCheck1 = GameObject.Find("Coll 1").GetComponent<Image>();
+        collCheck2 = GameObject.Find("Coll 2").GetComponent<Image>();
+        collCheck3 = GameObject.Find("Coll 3").GetComponent<Image>();
+
+        victoryScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,8 +56,7 @@ public class Victory : MonoBehaviour
         CheckCollectibles();
 
         statsText.text =  gameManager.timer.timeText.text + "\n" +
-                          "DeAths: " + gameManager.respawn.deathCount + "\n" +
-                          "Stars: " + collCheck1 + " " + collCheck2 + " " + collCheck3;
+                          "DeAths: " + gameManager.respawn.deathCount + "\n";
 
         gameManager.timer.timerOn = false;
         Cursor.lockState = CursorLockMode.None;
@@ -58,31 +67,31 @@ public class Victory : MonoBehaviour
         //Checks if the first collectible was collected
         if (gameManager.coll1 == true)
         {
-            collCheck1 = '!';
+            collCheck1.sprite = collectedSprite;
         }
         else
         {
-            collCheck1 = 'O';
+            collCheck1.sprite = notCollectedSprite;
         }
 
         //Checks if the second collectible was collected
         if (gameManager.coll2 == true)
         {
-            collCheck2 = '!';
+            collCheck2.sprite = collectedSprite;
         }
         else
         {
-            collCheck2 = 'O';
+            collCheck2.sprite = notCollectedSprite;
         }
 
         //Checks if the third collectible was collected
         if (gameManager.coll3 == true)
         {
-            collCheck3 = '!';
+            collCheck3.sprite = collectedSprite;
         }
         else
         {
-            collCheck3 = 'O';
+           collCheck3.sprite = notCollectedSprite;
         }
     }
 }
